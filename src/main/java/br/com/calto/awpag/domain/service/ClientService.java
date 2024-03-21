@@ -21,7 +21,7 @@ public class ClientService {
       .isPresent();
 
     if (isEmailUsed) {
-      throw new DomainException("E-mail in use");
+      throw new DomainException("email is already  in use");
     }
 
     return clientRepository.save(client);
@@ -37,6 +37,6 @@ public class ClientService {
   public Client find(Long clientId) {
     return clientRepository
       .findById(clientId)
-      .orElseThrow(() -> new DomainException("Client not found"));
+      .orElseThrow(() -> new DomainException("client not found"));
   }
 }

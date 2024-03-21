@@ -1,6 +1,5 @@
 package br.com.calto.awpag.api.controller;
 
-import br.com.calto.awpag.domain.exception.DomainException;
 import br.com.calto.awpag.domain.model.Client;
 import br.com.calto.awpag.domain.repository.ClientRepository;
 import br.com.calto.awpag.domain.service.ClientService;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +29,7 @@ public class ClientController {
   private final ClientService clientService;
 
   @GetMapping
-  public List<Client> ListAll() {
+  public List<Client> listAll() {
     return clientRepository.findAll();
   }
 
@@ -71,10 +69,5 @@ public class ClientController {
     }
     clientService.delete(clientId);
     return ResponseEntity.noContent().build();
-  }
-
-  @ExceptionHandler(DomainException.class)
-  public ResponseEntity<String> capture(DomainException e) {
-    return ResponseEntity.badRequest().body(e.getMessage());
   }
 }

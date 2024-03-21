@@ -4,7 +4,7 @@ import br.com.calto.awpag.domain.exception.DomainException;
 import br.com.calto.awpag.domain.model.Client;
 import br.com.calto.awpag.domain.model.Installment;
 import br.com.calto.awpag.domain.repository.InstallmentRepository;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,15 +20,13 @@ public class InstallmentService {
   @Transactional
   public Installment register(Installment installment) {
     if (installment.getId() != null) {
-      throw new DomainException("Create a installment must not have an ID");
-    } else if (installment.getClient().getId() == null) {
-      throw new DomainException("Client ID must not be null");
+      throw new DomainException("create a installment must not have an ID");
     }
 
     Client client = clientService.find(installment.getClient().getId());
 
     installment.setClient(client);
-    installment.setCreatedAt(LocalDateTime.now());
+    installment.setCreatedAt(OffsetDateTime.now());
 
     return installmentsRepository.save(installment);
   }

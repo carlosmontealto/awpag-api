@@ -1,5 +1,6 @@
 package br.com.calto.awpag.domain.model;
 
+import br.com.calto.awpag.domain.validation.ValidationGroups;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +13,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +33,7 @@ public class Installment {
   private Long id;
 
   @Valid
+  @ConvertGroup(to = ValidationGroups.ClientId.class)
   @NotNull
   @ManyToOne
   //@JoinColumn(name = "client_id")
@@ -49,5 +52,5 @@ public class Installment {
   @Max(12)
   private Integer installmentAmount;
 
-  private LocalDateTime createdAt;
+  private OffsetDateTime createdAt;
 }

@@ -1,5 +1,6 @@
 package br.com.calto.awpag.domain.model;
 
+import br.com.calto.awpag.domain.validation.ValidationGroups;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Client {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
-  @NotNull
+  @NotNull(groups = ValidationGroups.ClientId.class)
   private Long id;
 
   @NotBlank
@@ -38,6 +39,7 @@ public class Client {
   @Email
   private String email;
 
-  @NotNull
-  private Long phone;
+  @NotBlank
+  @Size(max = 20)
+  private String phone;
 }
